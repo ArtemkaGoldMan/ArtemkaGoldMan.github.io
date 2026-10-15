@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Підтримати ArtemkaGoldMan</title>
+  <meta name="description" content="Я роблю безкоштовні застосунки з відкритим кодом. Тут можна підтримати їх розробку.">
+  <meta property="og:title" content="Support ArtemkaGoldMan">
+  <meta property="og:description" content="Free, open-source apps made in my spare time. Here's how to say thanks.">
+  <meta property="og:type" content="website">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%9B%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #f5f6fa;
+      --card: #ffffff;
+      --text: #15171c;
+      --muted: #5d6270;
+      --line: rgba(20, 22, 30, .08);
+      --blue: #2f6fed;
+      --green: #20a67a;
+      --purple: #8b5cf6;
+      --yellow: #f5b82e;
+      --shadow: 0 1px 2px rgba(16, 18, 27, .04), 0 12px 32px rgba(16, 18, 27, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0e1015;
+        --card: #171a21;
+        --text: #eef0f5;
+        --muted: #9aa1b2;
+        --line: rgba(255, 255, 255, .08);
+        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 16px 40px rgba(0, 0, 0, .35);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+
+    /* Slowly drifting colour behind everything. */
+    .glow { position: fixed; inset: -20vmax; z-index: 0; pointer-events: none; filter: blur(60px); opacity: .55; }
+    .glow span { position: absolute; width: 42vmax; height: 42vmax; border-radius: 50%; animation: drift 26s ease-in-out infinite alternate; }
+    .glow span:nth-child(1) { background: radial-gradient(circle, rgba(47, 111, 237, .35), transparent 65%); left: 10%; top: 5%; }
+    .glow span:nth-child(2) { background: radial-gradient(circle, rgba(32, 166, 122, .3), transparent 65%); right: 5%; top: 30%; animation-duration: 32s; }
+    .glow span:nth-child(3) { background: radial-gradient(circle, rgba(139, 92, 246, .28), transparent 65%); left: 30%; bottom: 0; animation-duration: 38s; }
+    @keyframes drift { to { transform: translate(8vmax, -6vmax) scale(1.15); } }
+
+    /* Little hearts that float up past the page. */
+    .hearts { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .hearts i { position: absolute; bottom: -40px; font-style: normal; opacity: 0; animation: rise linear infinite; }
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(0); opacity: 0; }
+      10% { opacity: .7; }
+      100% { transform: translateY(-115vh) rotate(25deg); opacity: 0; }
+    }
+
+    main { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 28px 16px 56px; }
+
+    .top { display: flex; justify-content: flex-end; }
+    .lang {
+      border: 1px solid var(--line); background: var(--card); color: var(--text);
+      border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    header { text-align: center; padding: 32px 0 8px; }
+    .badge { position: relative; width: 112px; height: 112px; margin: 0 auto 22px; }
+    .badge .tile {
+      position: absolute; width: 64px; height: 64px; border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
+      animation: swap 4.8s cubic-bezier(.65, 0, .35, 1) infinite;
+    }
+    .badge .a { background: var(--blue); left: 8px; top: 8px; }
+    .badge .b { background: var(--green); left: 40px; top: 40px; animation-delay: -2.4s; }
+    .badge .heart {
+      position: absolute; left: 50%; top: 50%; z-index: 3; font-size: 30px; transform: translate(-50%, -50%);
+      animation: beat 1.6s ease-in-out infinite;
+    }
+    /* The two tiles trade places, the way a profile switch trades one set of apps for another. */
+    @keyframes swap {
+      0%, 35% { transform: translate(0, 0); z-index: 1; }
+      50% { transform: translate(16px, 16px) scale(1.04); z-index: 2; }
+      65%, 100% { transform: translate(0, 0); z-index: 2; }
+    }
+    @keyframes beat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      15% { transform: translate(-50%, -50%) scale(1.22); }
+      30% { transform: translate(-50%, -50%) scale(1); }
+      45% { transform: translate(-50%, -50%) scale(1.14); }
+    }
+
+    h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.12; margin: 0 0 14px; letter-spacing: -.02em; }
+    .lead { color: var(--muted); font-size: 18px; max-width: 560px; margin: 0 auto; }
+
+    h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 44px 0 14px; }
+
+    .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card {
+      position: relative; display: flex; flex-direction: column; gap: 10px;
+      background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px;
+      box-shadow: var(--shadow); text-decoration: none;
+      opacity: 0; transform: translateY(14px); animation: appear .6s ease forwards;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    a.card:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(16, 18, 27, .05), 0 18px 44px rgba(16, 18, 27, .14); }
+    @keyframes appear { to { opacity: 1; transform: none; } }
+    .card .icon {
+      width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+      font-size: 24px; color: #fff; flex: none;
+    }
+    .card .name { font-size: 19px; font-weight: 700; }
+    .card .what { color: var(--muted); font-size: 15px; flex: 1; }
+    .card .go {
+      align-self: flex-start; margin-top: 4px; padding: 9px 16px; border-radius: 999px;
+      font-size: 15px; font-weight: 600; color: #fff; position: relative; overflow: hidden;
+    }
+    .card .go::after {
+      content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+      background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .45), transparent 70%);
+    }
+    a.card:hover .go::after { animation: shine .9s ease; }
+    @keyframes shine { to { transform: translateX(120%); } }
+
+    .project { flex-direction: row; align-items: center; gap: 16px; }
+    .project img { width: 56px; height: 56px; border-radius: 14px; flex: none; }
+    .project .text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+    .project .arrow { color: var(--muted); font-size: 20px; }
+
+    .others { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 22px; box-shadow: var(--shadow); color: var(--muted); }
+    .others a { color: var(--blue); font-weight: 600; text-decoration: none; }
+
+    footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 44px; }
+    footer a { color: var(--muted); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .card { opacity: 1; transform: none; }
+      .hearts { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <main>
+    <div class="top"><button class="lang" id="lang" type="button" aria-label="Switch language">EN</button></div>
+
+    <header>
+      <div class="badge" aria-hidden="true">
+        <div class="tile a"></div>
+        <div class="tile b"></div>
+        <div class="heart">💛</div>
+      </div>
+      <h1 data-t="title"></h1>
+      <p class="lead" data-t="lead"></p>
+    </header>
+
+    <h2 data-t="ways"></h2>
+    <div class="grid" id="ways"></div>
+
+    <h2 data-t="projects"></h2>
+    <div class="grid" id="projects"></div>
+
+    <h2 data-t="more"></h2>
+    <p class="others" data-t="others"></p>
+
+    <footer>
+      <p data-t="footer"></p>
+    </footer>
+  </main>
+
+  <script>
+    // Everything that changes lives here: a way to donate shows only once it has a link, and a new
+    // project is one more entry.
+    const WAYS = [
+      {
+        id: "donatello",
+        url: "https://donatello.to/ArtemkaGoldManDev",
+        icon: "🎁",
+        color: "#ff7a45",
+        name: { uk: "Donatello", en: "Donatello" },
+        what: { uk: "Українська платформа донатів. Visa чи Mastercard.", en: "A Ukrainian donation platform. Visa or Mastercard." },
+        go: { uk: "Задонатити", en: "Donate" }
+      },
+      {
+        id: "monobank",
+        url: "https://send.monobank.ua/jar/7CGwNMvgpF",
+        icon: "🐈‍⬛",
+        color: "linear-gradient(135deg, #6e6bd8, #d98ea4)",
+        name: { uk: "Банка Monobank", en: "Monobank jar" },
+        what: { uk: "Будь-яка картка. З української — без комісії.", en: "Any card. No fee on a Ukrainian one, 2% on others." },
+        go: { uk: "Поповнити банку", en: "Top up the jar" }
+      },
+      {
+        id: "kofi",
+        url: "",
+        icon: "☕",
+        color: "#29abe0",
+        name: { uk: "Ko-fi", en: "Ko-fi" },
+        what: { uk: "Купити мені каву — з будь-якої країни.", en: "Buy me a coffee, from anywhere in the world." },
+        go: { uk: "Купити каву", en: "Buy a coffee" }
+      }
+    ];
+
+    const PROJECTS = [
+      {
+        url: "https://github.com/ArtemkaGoldMan/ContextSwitcher",
+        image: "../assets/contextswitcher.png",
+        name: "ContextSwitcher",
+        what: { uk: "Перемикає Mac між роботою й особистим в один клік. macOS.", en: "Switch your Mac between work and personal in one click. macOS." }
+      }
+    ];
+
+    const TEXT = {
+      uk: {
+        page: "Підтримати ArtemkaGoldMan",
+        title: "Дякую, що зазирнули 💛",
+        lead: "Я Артем, і я роблю безкоштовні застосунки з відкритим кодом у вільний час — без реклами й платних функцій. Якщо щось із цього стало вам у пригоді, ось як можна підтримати.",
+        ways: "Як підтримати",
+        projects: "Мої проєкти",
+        more: "І ще",
+        others: "Зірочка на <a href=\"https://github.com/ArtemkaGoldMan\" target=\"_blank\" rel=\"noopener\">GitHub</a>, розповісти друзям чи написати, що працює, а що ні, — допомагає не менше.",
+        footer: "Без реклами, трекерів і cookies. · <a href=\"https://github.com/ArtemkaGoldMan\">github.com/ArtemkaGoldMan</a>",
+        lang: "EN"
+      },
+      en: {
+        page: "Support ArtemkaGoldMan",
+        title: "Thanks for stopping by 💛",
+        lead: "I'm Artem, and I make free, open-source apps in my spare time — no ads, nothing behind a paywall. If something of mine has been useful to you, here's how you can say thanks.",
+        ways: "Ways to support",
+        projects: "My projects",
+        more: "And also",
+        others: "A star on <a href=\"https://github.com/ArtemkaGoldMan\" target=\"_blank\" rel=\"noopener\">GitHub</a>, telling a friend, or writing what works and what doesn't helps just as much.",
+        footer: "No ads, trackers or cookies. · <a href=\"https://github.com/ArtemkaGoldMan\">github.com/ArtemkaGoldMan</a>",
+        lang: "УК"
+      }
+    };
+
+    function pickLanguage() {
+      const asked = new URLSearchParams(location.search).get("lang");
+      if (asked === "uk" || asked === "en") return asked;
+      try {
+        const saved = localStorage.getItem("lang");
+        if (saved === "uk" || saved === "en") return saved;
+      } catch (e) { /* no storage: fall through */ }
+      return (navigator.languages || [navigator.language || ""]).some(l => /^(uk|ru|be)/i.test(l)) ? "uk" : "en";
+    }
+
+    function render(lang) {
+      const t = TEXT[lang];
+      document.documentElement.lang = lang;
+      document.title = t.page;
+      document.querySelectorAll("[data-t]").forEach(el => { el.innerHTML = t[el.dataset.t]; });
+      document.getElementById("lang").textContent = t.lang;
+
+      const ways = document.getElementById("ways");
+      ways.innerHTML = "";
+      WAYS.filter(w => w.url).forEach((w, i) => {
+        const a = document.createElement("a");
+        a.className = "card";
+        a.href = w.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.style.animationDelay = (0.08 * i + 0.1) + "s";
+        a.innerHTML =
+          `<span class="icon" style="background:${w.color}">${w.icon}</span>` +
+          `<span class="name">${w.name[lang]}</span>` +
+          `<span class="what">${w.what[lang]}</span>` +
+          `<span class="go" style="background:${w.color}">${w.go[lang]} →</span>`;
+        ways.appendChild(a);
+      });
+
+      const projects = document.getElementById("projects");
+      projects.innerHTML = "";
+      PROJECTS.forEach((p, i) => {
+        const a = document.createElement("a");
+        a.className = "card project";
+        a.href = p.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.style.animationDelay = (0.08 * i + 0.3) + "s";
+        a.innerHTML =
+          `<img src="${p.image}" alt="">` +
+          `<span class="text"><span class="name">${p.name}</span><span class="what">${p.what[lang]}</span></span>` +
+          `<span class="arrow">↗</span>`;
+        projects.appendChild(a);
+      });
+    }
+
+    let lang = pickLanguage();
+    render(lang);
+    document.getElementById("lang").addEventListener("click", () => {
+      lang = lang === "uk" ? "en" : "uk";
+      try { localStorage.setItem("lang", lang); } catch (e) { /* not remembered: fine */ }
+      render(lang);
+    });
+
+    // A few hearts drift up the page now and then.
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const box = document.querySelector(".hearts");
+      const shapes = ["💛", "💙", "💚", "💜"];
+      for (let i = 0; i < 14; i++) {
+        const h = document.createElement("i");
+        h.textContent = shapes[i % shapes.length];
+        h.style.left = Math.random() * 100 + "%";
+        h.style.fontSize = 12 + Math.random() * 14 + "px";
+        h.style.animationDuration = 12 + Math.random() * 14 + "s";
+        h.style.animationDelay = -Math.random() * 20 + "s";
+        box.appendChild(h);
+      }
+    }
+  </script>
+</body>
+</html>
