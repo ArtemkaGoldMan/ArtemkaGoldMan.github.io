@@ -8,5 +8,6 @@ opens it, so a new way to donate or a new project only needs this page changed, 
   its script: a way to donate shows once it has a link, and a project is one more entry.
 - `index.html` — sends the bare address to the support page, until there is a home page.
 
-Plain HTML, CSS and a little JavaScript, served by GitHub Pages as is. No build, no trackers, no
+Plain HTML, CSS and a little JavaScript, served by GitHub Pages as is. Icons are [Lucide](https://lucide.dev)
+(ISC licence), the same set the apps use. No build, no trackers, no
 cookies.

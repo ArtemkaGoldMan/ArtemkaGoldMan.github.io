@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Підтримати ArtemkaGoldMan</title>
-  <meta name="description" content="Я роблю безкоштовні застосунки з відкритим кодом. Тут можна підтримати їх розробку.">
-  <meta property="og:title" content="Support ArtemkaGoldMan">
-  <meta property="og:description" content="Free, open-source apps made in my spare time. Here's how to say thanks.">
+  <title>Нагодуй розробника · ArtemkaGoldMan</title>
+  <meta name="description" content="Безкоштовні застосунки з відкритим кодом, зроблені після роботи. Тут можна закинути на AI-підписку або бігмак-меню.">
+  <meta property="og:title" content="Feed the developer · ArtemkaGoldMan">
+  <meta property="og:description" content="Free, open-source apps built after work. Toss a coin for a better AI subscription or a Big Mac meal.">
   <meta property="og:type" content="website">
   <meta name="color-scheme" content="light dark">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%9B%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5b82e' d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #f5f6fa;
@@ -56,10 +56,10 @@
 
     /* Little hearts that float up past the page. */
     .hearts { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .hearts i { position: absolute; bottom: -40px; font-style: normal; opacity: 0; animation: rise linear infinite; }
+    .hearts svg { position: absolute; bottom: -40px; opacity: 0; animation: rise linear infinite; }
     @keyframes rise {
       0% { transform: translateY(0) rotate(0); opacity: 0; }
-      10% { opacity: .7; }
+      10% { opacity: .55; }
       100% { transform: translateY(-115vh) rotate(25deg); opacity: 0; }
     }
 
@@ -82,9 +82,11 @@
     .badge .a { background: var(--blue); left: 8px; top: 8px; }
     .badge .b { background: var(--green); left: 40px; top: 40px; animation-delay: -2.4s; }
     .badge .heart {
-      position: absolute; left: 50%; top: 50%; z-index: 3; font-size: 30px; transform: translate(-50%, -50%);
+      position: absolute; left: 50%; top: 50%; z-index: 3; width: 34px; height: 34px; color: #fff;
+      transform: translate(-50%, -50%); filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .25));
       animation: beat 1.6s ease-in-out infinite;
     }
+    .badge .heart svg { width: 100%; height: 100%; display: block; }
     /* The two tiles trade places, the way a profile switch trades one set of apps for another. */
     @keyframes swap {
       0%, 35% { transform: translate(0, 0); z-index: 1; }
@@ -115,8 +117,10 @@
     @keyframes appear { to { opacity: 1; transform: none; } }
     .card .icon {
       width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
-      font-size: 24px; color: #fff; flex: none;
+      color: #fff; flex: none;
     }
+    .card .icon svg { width: 24px; height: 24px; }
+    .card .go svg { width: 16px; height: 16px; vertical-align: -3px; margin-left: 6px; }
     .card .name { font-size: 19px; font-weight: 700; }
     .card .what { color: var(--muted); font-size: 15px; flex: 1; }
     .card .go {
@@ -133,9 +137,15 @@
     .project { flex-direction: row; align-items: center; gap: 16px; }
     .project img { width: 56px; height: 56px; border-radius: 14px; flex: none; }
     .project .text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-    .project .arrow { color: var(--muted); font-size: 20px; }
+    .project .arrow { color: var(--muted); width: 22px; height: 22px; flex: none; }
 
-    .others { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 22px; box-shadow: var(--shadow); color: var(--muted); }
+    .others {
+      display: flex; gap: 16px; align-items: center;
+      background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 22px; box-shadow: var(--shadow); color: var(--muted);
+    }
+    .others .icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; background: var(--yellow); flex: none; }
+    .others .icon svg { width: 22px; height: 22px; }
+    .others p { margin: 0; }
     .others a { color: var(--blue); font-weight: 600; text-decoration: none; }
 
     footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 44px; }
@@ -159,7 +169,7 @@
       <div class="badge" aria-hidden="true">
         <div class="tile a"></div>
         <div class="tile b"></div>
-        <div class="heart">💛</div>
+        <div class="heart" id="heart"></div>
       </div>
       <h1 data-t="title"></h1>
       <p class="lead" data-t="lead"></p>
@@ -172,7 +182,7 @@
     <div class="grid" id="projects"></div>
 
     <h2 data-t="more"></h2>
-    <p class="others" data-t="others"></p>
+    <div class="others"><span class="icon" id="others-icon"></span><p data-t="others"></p></div>
 
     <footer>
       <p data-t="footer"></p>
@@ -180,34 +190,56 @@
   </main>
 
   <script>
+    // Lucide icons (lucide.dev, ISC licence), the same set the apps use.
+    const ICONS = {
+      gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>',
+      piggy: '<path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"/><path d="M2 9v1c0 1.1.9 2 2 2h1"/><path d="M16 11h.01"/>',
+      coffee: '<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>',
+      heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+      sparkles: '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>',
+      arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+      arrowUpRight: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>'
+    };
+    const icon = (name, filled) =>
+      `<svg viewBox="0 0 24 24" fill="${filled ? "currentColor" : "none"}" stroke="${filled ? "none" : "currentColor"}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+
     // Everything that changes lives here: a way to donate shows only once it has a link, and a new
     // project is one more entry.
     const WAYS = [
       {
         id: "donatello",
         url: "https://donatello.to/ArtemkaGoldManDev",
-        icon: "🎁",
-        color: "#ff7a45",
+        icon: "gift",
+        color: "linear-gradient(135deg, #ff8a4c, #ff5f6d)",
         name: { uk: "Donatello", en: "Donatello" },
-        what: { uk: "Українська платформа донатів. Visa чи Mastercard.", en: "A Ukrainian donation platform. Visa or Mastercard." },
+        what: {
+          uk: "Українська платформа донатів. Visa чи Mastercard — і ваше ім'я назавжди в моєму серці.",
+          en: "A Ukrainian donation platform. Visa or Mastercard — and your name forever in my heart."
+        },
         go: { uk: "Задонатити", en: "Donate" }
       },
       {
         id: "monobank",
         url: "https://send.monobank.ua/jar/7CGwNMvgpF",
-        icon: "🐈‍⬛",
+        icon: "piggy",
         color: "linear-gradient(135deg, #6e6bd8, #d98ea4)",
         name: { uk: "Банка Monobank", en: "Monobank jar" },
-        what: { uk: "Будь-яка картка. З української — без комісії.", en: "Any card. No fee on a Ukrainian one, 2% on others." },
-        go: { uk: "Поповнити банку", en: "Top up the jar" }
+        what: {
+          uk: "Будь-яка картка. З української — без комісії, тож бігмак доїде цілим.",
+          en: "Any card. No fee on a Ukrainian one (2% on others), so the Big Mac arrives whole."
+        },
+        go: { uk: "Кинути в банку", en: "Drop it in the jar" }
       },
       {
         id: "kofi",
         url: "",
-        icon: "☕",
-        color: "#29abe0",
+        icon: "coffee",
+        color: "linear-gradient(135deg, #29abe0, #1c7fd6)",
         name: { uk: "Ko-fi", en: "Ko-fi" },
-        what: { uk: "Купити мені каву — з будь-якої країни.", en: "Buy me a coffee, from anywhere in the world." },
+        what: {
+          uk: "Купити мені каву, щоб код був бадьоріший.",
+          en: "Buy me a coffee, for perkier code."
+        },
         go: { uk: "Купити каву", en: "Buy a coffee" }
       }
     ];
@@ -217,31 +249,34 @@
         url: "https://github.com/ArtemkaGoldMan/ContextSwitcher",
         image: "../assets/contextswitcher.png",
         name: "ContextSwitcher",
-        what: { uk: "Перемикає Mac між роботою й особистим в один клік. macOS.", en: "Switch your Mac between work and personal in one click. macOS." }
+        what: {
+          uk: "Перемикає Mac між роботою й особистим в один клік. Бо закрити Slack о шостій вечора — це мистецтво.",
+          en: "Switches your Mac between work and personal in one click. Because closing Slack at 6 pm is an art."
+        }
       }
     ];
 
     const TEXT = {
       uk: {
-        page: "Підтримати ArtemkaGoldMan",
-        title: "Дякую, що зазирнули 💛",
-        lead: "Я Артем, і я роблю безкоштовні застосунки з відкритим кодом у вільний час — без реклами й платних функцій. Якщо щось із цього стало вам у пригоді, ось як можна підтримати.",
-        ways: "Як підтримати",
-        projects: "Мої проєкти",
-        more: "І ще",
-        others: "Зірочка на <a href=\"https://github.com/ArtemkaGoldMan\" target=\"_blank\" rel=\"noopener\">GitHub</a>, розповісти друзям чи написати, що працює, а що ні, — допомагає не менше.",
-        footer: "Без реклами, трекерів і cookies. · <a href=\"https://github.com/ArtemkaGoldMan\">github.com/ArtemkaGoldMan</a>",
+        page: "Нагодуй розробника · ArtemkaGoldMan",
+        title: "Нагодуй розробника",
+        lead: "Я звичайний хлоп, який після роботи замість серіалів пиляє безкоштовні застосунки — без реклами, підписок і «Pro-версії за 9,99». Якщо щось із цього зекономило вам час чи нерви, можна закинути копійку. Чесно піде на кращу підписку для AI (щоб код писався, поки я сплю) або на бігмак-меню (щоб я не спав і писав код).",
+        ways: "Куди кидати копійку",
+        projects: "Що я вже напиляв",
+        more: "Грошей нема? Теж норм",
+        others: "Поставте зірочку на <a href=\"https://github.com/ArtemkaGoldMan\" target=\"_blank\" rel=\"noopener\">GitHub</a>, розкажіть друзям або напишіть, що працює, а що ні, — це теж паливо. Хоча бігмак за нього не продають.",
+        footer: "Без реклами, трекерів і cookies. Тільки бігмаки. · <a href=\"https://github.com/ArtemkaGoldMan\">github.com/ArtemkaGoldMan</a>",
         lang: "EN"
       },
       en: {
-        page: "Support ArtemkaGoldMan",
-        title: "Thanks for stopping by 💛",
-        lead: "I'm Artem, and I make free, open-source apps in my spare time — no ads, nothing behind a paywall. If something of mine has been useful to you, here's how you can say thanks.",
-        ways: "Ways to support",
-        projects: "My projects",
-        more: "And also",
-        others: "A star on <a href=\"https://github.com/ArtemkaGoldMan\" target=\"_blank\" rel=\"noopener\">GitHub</a>, telling a friend, or writing what works and what doesn't helps just as much.",
-        footer: "No ads, trackers or cookies. · <a href=\"https://github.com/ArtemkaGoldMan\">github.com/ArtemkaGoldMan</a>",
+        page: "Feed the developer · ArtemkaGoldMan",
+        title: "Feed the developer",
+        lead: "I'm just a regular guy who, instead of binge-watching shows after work, builds free apps — no ads, no subscriptions, no “Pro for $9.99”. If something of mine saved you time or nerves, you can toss a coin. It honestly goes to a better AI subscription (so code gets written while I sleep) or a Big Mac meal (so I don't sleep and write code).",
+        ways: "Where to toss a coin",
+        projects: "What I've built so far",
+        more: "Short on cash? Also fine",
+        others: "Star it on <a href=\"https://github.com/ArtemkaGoldMan\" target=\"_blank\" rel=\"noopener\">GitHub</a>, tell a friend, or write what works and what doesn't — that's fuel too. Though nobody sells Big Macs for it.",
+        footer: "No ads, trackers or cookies. Only Big Macs. · <a href=\"https://github.com/ArtemkaGoldMan\">github.com/ArtemkaGoldMan</a>",
         lang: "УК"
       }
     };
@@ -273,10 +308,10 @@
         a.rel = "noopener";
         a.style.animationDelay = (0.08 * i + 0.1) + "s";
         a.innerHTML =
-          `<span class="icon" style="background:${w.color}">${w.icon}</span>` +
+          `<span class="icon" style="background:${w.color}">${icon(w.icon)}</span>` +
           `<span class="name">${w.name[lang]}</span>` +
           `<span class="what">${w.what[lang]}</span>` +
-          `<span class="go" style="background:${w.color}">${w.go[lang]} →</span>`;
+          `<span class="go" style="background:${w.color}">${w.go[lang]}${icon("arrowRight")}</span>`;
         ways.appendChild(a);
       });
 
@@ -292,10 +327,13 @@
         a.innerHTML =
           `<img src="${p.image}" alt="">` +
           `<span class="text"><span class="name">${p.name}</span><span class="what">${p.what[lang]}</span></span>` +
-          `<span class="arrow">↗</span>`;
+          `<span class="arrow">${icon("arrowUpRight")}</span>`;
         projects.appendChild(a);
       });
     }
+
+    document.getElementById("heart").innerHTML = icon("heart", true);
+    document.getElementById("others-icon").innerHTML = icon("sparkles");
 
     let lang = pickLanguage();
     render(lang);
@@ -308,15 +346,18 @@
     // A few hearts drift up the page now and then.
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const box = document.querySelector(".hearts");
-      const shapes = ["💛", "💙", "💚", "💜"];
+      const colours = ["#f5b82e", "#2f6fed", "#20a67a", "#8b5cf6"];
       for (let i = 0; i < 14; i++) {
-        const h = document.createElement("i");
-        h.textContent = shapes[i % shapes.length];
-        h.style.left = Math.random() * 100 + "%";
-        h.style.fontSize = 12 + Math.random() * 14 + "px";
-        h.style.animationDuration = 12 + Math.random() * 14 + "s";
-        h.style.animationDelay = -Math.random() * 20 + "s";
-        box.appendChild(h);
+        const size = 10 + Math.random() * 14;
+        const h = document.createElement("span");
+        h.innerHTML = icon("heart", true);
+        const svg = h.firstChild;
+        svg.style.color = colours[i % colours.length];
+        svg.style.width = svg.style.height = size + "px";
+        svg.style.left = Math.random() * 100 + "%";
+        svg.style.animationDuration = 12 + Math.random() * 14 + "s";
+        svg.style.animationDelay = -Math.random() * 20 + "s";
+        box.appendChild(svg);
       }
     }
   </script>
